@@ -2,13 +2,13 @@ import axios from 'axios';
 
 // Crear una instancia básica
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || 'https://inexcons-backend.onrender.com/api', // URL del backend de Laravel
+  baseURL: import.meta.env.VITE_BACKEND_URL || 'https://inexcons-render.onrender.com/api', // URL del backend de Laravel
   timeout: 30000, // 30 segundos
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: true, // Cambiar a true para permitir cookies y autenticación entre dominios
+  withCredentials: true, // Permitir cookies y autenticación entre dominios
   // Configuración adicional para mejorar la estabilidad
   validateStatus: function (status) {
     return status >= 200 && status < 500; // Aceptar respuestas hasta 499
