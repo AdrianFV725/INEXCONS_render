@@ -20,45 +20,22 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
+        'https://inexcons-render-1.onrender.com',
+        'https://inexcons-frontend.onrender.com',
+        'https://inexcons-backend.onrender.com',
         'http://localhost:5174',
         'http://localhost:5175',
         'http://127.0.0.1:5174',
-        'http://127.0.0.1:5175',
-        'http://192.168.100.78:5174',
-        'http://192.168.100.78:5175',
-        'http://192.168.100.78:8000',
-        'http://192.168.100.78',
-        'http://192.168.2.87:5174',
-        'http://192.168.2.87:5175',
-        'http://192.168.2.87:8000',
-        'http://192.168.2.87',
-        'http://127.0.0.1:8001',
-        'capacitor://localhost',
-        'http://localhost',
-        'http://localhost:8000',
-        'http://192.168.100.*',
-        'http://192.168.2.*',
-        'https://inexcons-render-1.onrender.com',
-        'https://inexcons-frontend.onrender.com',
-        'https://*.onrender.com',
-        '*',
+        'http://127.0.0.1:5175'
     ],
 
-    'allowed_origins_patterns' => [
-        '/^http:\/\/localhost:\d+$/',
-        '/^http:\/\/127\.0\.0\.1:\d+$/',
-        '/^http:\/\/192\.168\.\d+\.\d+$/',
-        '/^http:\/\/192\.168\.\d+\.\d+:\d+$/',
-        '/^capacitor:\/\/.*$/',
-        '/^https:\/\/.*\.onrender\.com$/',
-        '/^https:\/\/.*$/',
-    ],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
     'exposed_headers' => ['*'],
 
-    'max_age' => 0,
+    'max_age' => 86400,
 
     'supports_credentials' => true,
 
