@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: inexcons-app
+    env: static
+    buildCommand: ./build.sh
+    staticPublishPath: ./
+    routes:
+      - type: redirect
+        source: /*
+        destination: https://inexcons-frontend.onrender.com
+    envVars:
+      - key: NODE_VERSION
+        value: 18

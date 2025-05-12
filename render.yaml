@@ -2,7 +2,8 @@ services:
   # Servicio web para el backend de Laravel
   - type: web
     name: inexcons-backend
-    env: php
+    runtime: php
+    plan: free
     buildCommand: cd backend && composer install --no-interaction --prefer-dist --optimize-autoloader && npm ci --legacy-peer-deps && npm run build && php artisan migrate --force
     startCommand: cd backend && php -S 0.0.0.0:$PORT -t public
     envVars:
@@ -41,18 +42,23 @@ services:
         generateValue: true
       - key: LOG_CHANNEL
         value: stderr
+      - key: PHP_VERSION
+        value: 8.2
 
   # Servicio estático para el frontend de React
   - type: web
     name: inexcons-frontend
-    env: static
+    runtime: static
     buildCommand: cd frontend && npm ci --legacy-peer-deps && npm run build
     staticPublishPath: ./frontend/dist
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 18
 
 databases:
   - name: inexcons-db
-    plan: starter
+    plan: free
