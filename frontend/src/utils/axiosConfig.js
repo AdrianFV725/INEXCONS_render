@@ -8,7 +8,7 @@ const instance = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: true,
+  withCredentials: false, // Cambiar a false para evitar problemas de CORS
   // Configuración adicional para mejorar la estabilidad
   validateStatus: function (status) {
     return status >= 200 && status < 500; // Aceptar respuestas hasta 499

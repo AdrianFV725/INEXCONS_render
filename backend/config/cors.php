@@ -38,6 +38,9 @@ return [
         'http://localhost:8000',
         'http://192.168.100.*',
         'http://192.168.2.*',
+        'https://inexcons-render-1.onrender.com',
+        'https://inexcons-frontend.onrender.com',
+        'https://*.onrender.com',
     ],
 
     'allowed_origins_patterns' => [
@@ -46,6 +49,7 @@ return [
         '/^http:\/\/192\.168\.\d+\.\d+$/',
         '/^http:\/\/192\.168\.\d+\.\d+:\d+$/',
         '/^capacitor:\/\/.*$/',
+        '/^https:\/\/.*\.onrender\.com$/',
     ],
 
     'allowed_headers' => ['*'],
