@@ -24,6 +24,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
+            // Manejo de preflight OPTIONS
+            if ($request->isMethod('OPTIONS')) {
+                return response('', 200)
+                    ->header('Access-Control-Allow-Origin', '*')
+                    ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+                    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                    ->header('Access-Control-Allow-Credentials', 'true');
+            }
+
             $credentials = $request->validate([
                 'email' => 'required|email',
                 'password' => 'required',
@@ -43,7 +52,11 @@ class AuthController extends Controller
                     'message' => 'Inicio de sesión exitoso',
                     'user' => $user,
                     'token' => $token,
-                ]);
+                ])
+                    ->header('Access-Control-Allow-Origin', '*')
+                    ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+                    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                    ->header('Access-Control-Allow-Credentials', 'true');
             }
 
             Log::warning('Credenciales incorrectas', ['email' => $credentials['email']]);
@@ -51,7 +64,11 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Credenciales incorrectas',
-            ], 401);
+            ], 401)
+                ->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                ->header('Access-Control-Allow-Credentials', 'true');
         } catch (ValidationException $e) {
             Log::error('Error de validación en login', [
                 'errors' => $e->errors(),
@@ -62,7 +79,11 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => 'Datos de inicio de sesión inválidos',
                 'errors' => $e->errors()
-            ], 422);
+            ], 422)
+                ->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                ->header('Access-Control-Allow-Credentials', 'true');
         } catch (\Exception $e) {
             Log::error('Error en login: ' . $e->getMessage(), [
                 'exception' => get_class($e),
@@ -73,7 +94,11 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
-            ], 500);
+            ], 500)
+                ->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                ->header('Access-Control-Allow-Credentials', 'true');
         }
     }
 

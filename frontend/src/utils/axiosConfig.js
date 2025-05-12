@@ -8,7 +8,7 @@ const instance = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: false, // Cambiar a false para evitar problemas de CORS
+  withCredentials: true, // Cambiar a true para permitir cookies y autenticación entre dominios
   // Configuración adicional para mejorar la estabilidad
   validateStatus: function (status) {
     return status >= 200 && status < 500; // Aceptar respuestas hasta 499
@@ -59,12 +59,7 @@ instance.interceptors.response.use(
     console.error('Data:', error.response?.data);
     console.error('Message:', error.message);
     console.error('Code:', error.code);
-    console.error('Config:', {
-      url: error.config?.url,
-      method: error.config?.method,
-      data: error.config?.data,
-      baseURL: error.config?.baseURL
-    });
+    console.error('Config:', error.config);
     console.error('=== Fin de Error ===');
 
     if (error.response?.status === 401) {

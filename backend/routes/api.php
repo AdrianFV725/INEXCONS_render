@@ -24,8 +24,10 @@ Route::get('/test', function () {
 });
 
 // Rutas de autenticación
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/recuperar-password', [AuthController::class, 'recuperarPassword']);
+Route::middleware('cors')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/recuperar-password', [AuthController::class, 'recuperarPassword']);
+});
 
 // Rutas de especialidades (sin autenticación)
 Route::prefix('especialidades')->group(function () {

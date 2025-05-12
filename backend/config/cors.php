@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'storage/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'storage/*', 'login', '*'],
 
     'allowed_methods' => ['*'],
 
@@ -41,6 +41,7 @@ return [
         'https://inexcons-render-1.onrender.com',
         'https://inexcons-frontend.onrender.com',
         'https://*.onrender.com',
+        '*',
     ],
 
     'allowed_origins_patterns' => [
@@ -50,11 +51,12 @@ return [
         '/^http:\/\/192\.168\.\d+\.\d+:\d+$/',
         '/^capacitor:\/\/.*$/',
         '/^https:\/\/.*\.onrender\.com$/',
+        '/^https:\/\/.*$/',
     ],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    'exposed_headers' => ['*'],
 
     'max_age' => 0,
 
