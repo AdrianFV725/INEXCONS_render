@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crear una instancia básica
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api', // URL del backend de Laravel
+  baseURL: import.meta.env.VITE_BACKEND_URL || 'https://inexcons-backend.onrender.com/api', // URL del backend de Laravel
   timeout: 30000, // 30 segundos
   headers: {
     'Content-Type': 'application/json',

@@ -58,6 +58,12 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18
+      - key: VITE_BACKEND_URL
+        fromService:
+          name: inexcons-backend
+          type: web
+          property: host
+          append: /api
 
 databases:
   - name: inexcons-db
