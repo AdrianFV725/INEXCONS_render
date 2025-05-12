@@ -22,6 +22,7 @@ class CorsMiddleware
             'https://inexcons-render-1.onrender.com',
             'https://inexcons-frontend.onrender.com',
             'https://inexcons-backend.onrender.com',
+            'https://inexcons.fly.dev',
             'http://localhost:5174',
             'http://localhost:5175',
             'http://127.0.0.1:5174',

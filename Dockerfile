@@ -32,11 +32,14 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Habilitar mod_rewrite
-RUN a2enmod rewrite
+# Habilitar mod_rewrite y headers
+RUN a2enmod rewrite headers
 
 # Instalar dependencias de PHP
 RUN composer install --no-interaction --no-dev --optimize-autoloader
+
+# Generar clave de aplicación si no existe
+RUN php artisan key:generate --force
 
 # Instalar dependencias de Node.js
 RUN npm ci --legacy-peer-deps && npm run build
@@ -49,6 +52,17 @@ RUN chmod -R 755 /var/www/backend/storage
 ENV PORT=8080
 ENV APP_ENV=production
 ENV APP_DEBUG=false
+ENV APP_URL=https://inexcons.fly.dev
+ENV FRONTEND_URL=https://inexcons.fly.dev
+ENV SESSION_DOMAIN=.fly.dev
+ENV SANCTUM_STATEFUL_DOMAINS=inexcons.fly.dev
+
+# Configuración CORS
+RUN echo "Header always set Access-Control-Allow-Origin \"https://inexcons.fly.dev\"" >> /etc/apache2/conf-available/cors.conf
+RUN echo "Header always set Access-Control-Allow-Methods \"GET, POST, PUT, DELETE, OPTIONS\"" >> /etc/apache2/conf-available/cors.conf
+RUN echo "Header always set Access-Control-Allow-Headers \"Content-Type, Authorization, X-Requested-With\"" >> /etc/apache2/conf-available/cors.conf
+RUN echo "Header always set Access-Control-Allow-Credentials \"true\"" >> /etc/apache2/conf-available/cors.conf
+RUN a2enconf cors
 
 # Exponer puerto
 EXPOSE 8080
